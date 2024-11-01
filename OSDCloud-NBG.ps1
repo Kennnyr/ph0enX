@@ -26,14 +26,6 @@ $Global:MyOSDCloud = [ordered]@{
     CheckSHA1 = [bool]$true
 }
 
-#Launch OSDCloud
-Write-Host "Starting OSDCloud" -ForegroundColor Green
-write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
-
-Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
-
-
-
 $ComputerProduct = (Get-MyComputerProduct)
 $ComputerManufacturer = (Get-MyComputerManufacturer -Brief)
 #>
@@ -60,3 +52,9 @@ if (Test-DISMFromOSDCloudUSB -eq $true){
         $Global:MyOSDCloud.DriverPackName = "None"
     }
 }
+
+#Launch OSDCloud
+Write-Host "Starting OSDCloud" -ForegroundColor Green
+write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
+
+Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
