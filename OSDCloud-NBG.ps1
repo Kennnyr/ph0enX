@@ -56,6 +56,7 @@ if (Test-DISMFromOSDCloudUSB -eq $true){
         $Global:MyOSDCloud.DriverPackName = "None"
     }
 }
+#>
 
 #Launch OSDCloud
 Write-Host "Starting OSDCloud" -ForegroundColor Green
