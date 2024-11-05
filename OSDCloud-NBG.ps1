@@ -13,16 +13,16 @@ $OSReleaseID = '23H2' #Used to Determine Driver Pack
 
 #Set OSDCloud Vars
 $Global:MyOSDCloud = [ordered]@{
-    Restart = [bool]$False
-    RecoveryPartition = [bool]$true
-    OEMActivation = [bool]$True
-    WindowsUpdate = [bool]$true
-    WindowsUpdateDrivers = [bool]$true
-    WindowsDefenderUpdate = [bool]$true
-    SetTimeZone = [bool]$true
-    ClearDiskConfirm = [bool]$False
-    ShutdownSetupComplete = [bool]$false
-    SyncMSUpCatDriverUSB = [bool]$true
+    Restart = [bool]$False #Disables OSDCloud automatically restarting
+    RecoveryPartition = [bool]$true #Ensures a Recover partition is created, True is default unless on VM
+    OEMActivation = [bool]$True #Attempts to look up the Windows Code in UEFI and activate Windows OS (SetupComplete Phase)
+    WindowsUpdate = [bool]$true #Runs Windows Updates during Setup Complete
+    WindowsUpdateDrivers = [bool]$true #Runs WU for Drivers during Setup Complete
+    WindowsDefenderUpdate = [bool]$true #Run Defender Platform and Def updates during Setup Complete
+    SetTimeZone = [bool]$true #Set the Timezone based on the IP Address
+    ClearDiskConfirm = [bool]$False #Skip the Confirmation for wiping drive before format
+    ShutdownSetupComplete = [bool]$false #After Setup Complete, instead of Restarting to OOBE, just Shutdown
+    SyncMSUpCatDriverUSB = [bool]$true #Sync any MS Update Drivers during WinPE to Flash Drive, saves time in future run
     CheckSHA1 = [bool]$true
 }
 
@@ -63,3 +63,7 @@ Write-Host "Starting OSDCloud" -ForegroundColor Green
 write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
+
+
+#Restart Computer from WInPE into Full OS to continue Process
+restart-computer
