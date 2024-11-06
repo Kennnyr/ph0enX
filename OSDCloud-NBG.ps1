@@ -72,6 +72,7 @@ Import-Module AutopilotOOBE -Force
 $Params = @{
     Title = 'OSDeploy Autopilot Registration'
     AddToGroup = 'RO-Simulator'
+    Assign = $true
     Hidden = 'AssignedComputerName','AssignedUser','GroupTag','GroupTagOptions'
 }
 AutopilotOOBE @Params
