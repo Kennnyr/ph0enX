@@ -66,6 +66,12 @@ write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
 
+$Params = @{
+    Title = 'OSDeploy Autopilot Registration'
+    AddToGroup = 'RO-Simulator'
+    Hidden = 'AssignedComputerName','AssignedUser','GroupTag','GroupTagOptions'
+}
+AutopilotOOBE @Params
 
 #Restart Computer from WInPE into Full OS to continue Process
 restart-computer
