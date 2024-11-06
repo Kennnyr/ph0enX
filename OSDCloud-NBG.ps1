@@ -11,6 +11,7 @@ $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
 $OSVersion = 'Windows 11' #Used to Determine Driver Pack
 $OSReleaseID = '23H2' #Used to Determine Driver Pack
 
+$Global:OSDCloud
 #Set OSDCloud Vars
 $Global:MyOSDCloud = [ordered]@{
     Restart = [bool]$False #Disables OSDCloud automatically restarting
@@ -24,8 +25,8 @@ $Global:MyOSDCloud = [ordered]@{
     ShutdownSetupComplete = [bool]$false #After Setup Complete, instead of Restarting to OOBE, just Shutdown
     SyncMSUpCatDriverUSB = [bool]$true #Sync any MS Update Drivers during WinPE to Flash Drive, saves time in future run
     CheckSHA1 = [bool]$true
-    SkipAutopilot = [bool]$false
-    SkipAutopilotOOBE = [bool]$true
+    #SkipAutopilot = [bool]$false
+    #SkipAutopilotOOBE = [bool]$false
 }
 
 <# Offline Driver Details
@@ -60,11 +61,14 @@ if (Test-DISMFromOSDCloudUSB -eq $true){
 }
 #>
 
+
 #Launch OSDCloud
 Write-Host "Starting OSDCloud" -ForegroundColor Green
 write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
+
+Set-WindowsProductKey C9N3Y-9VH6P-BGJFJ-JRY78-MTDGY
 
 #Restart Computer from WInPE into Full OS to continue Process
 restart-computer
