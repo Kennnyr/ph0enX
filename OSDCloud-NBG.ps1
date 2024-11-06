@@ -24,7 +24,7 @@ $Global:MyOSDCloud = [ordered]@{
     ShutdownSetupComplete = [bool]$false #After Setup Complete, instead of Restarting to OOBE, just Shutdown
     SyncMSUpCatDriverUSB = [bool]$true #Sync any MS Update Drivers during WinPE to Flash Drive, saves time in future run
     CheckSHA1 = [bool]$true
-    SkipAutopilot = [bool]$true
+    SkipAutopilot = [bool]$false
     SkipAutopilotOOBE = [bool]$true
 }
 
@@ -65,17 +65,6 @@ Write-Host "Starting OSDCloud" -ForegroundColor Green
 write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
-
-Install-Module AutopilotOOBE -Force
-Import-Module AutopilotOOBE -Force
-
-$Params = @{
-    Title = 'OSDeploy Autopilot Registration'
-    AddToGroup = 'RO-Simulator'
-    Assign = $true
-    Hidden = 'AssignedComputerName','AssignedUser','GroupTag','GroupTagOptions'
-}
-AutopilotOOBE @Params
 
 #Restart Computer from WInPE into Full OS to continue Process
 restart-computer
