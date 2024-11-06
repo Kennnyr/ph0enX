@@ -66,6 +66,9 @@ write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
 
+Install-Module AutopilotOOBE -Force
+Import-Module AutopilotOOBE -Force
+
 $Params = @{
     Title = 'OSDeploy Autopilot Registration'
     AddToGroup = 'RO-Simulator'
